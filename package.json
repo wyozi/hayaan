@@ -1,15 +1,19 @@
 {
-  "name": "hayaan",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@wyozi/hayaan",
+  "version": "1.0.2",
+  "main": "dist/hayaan.js",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "release": "yarn run clean && yarn run build && npm publish"
   },
   "dependencies": {
     "jest": "^24.9.0"
