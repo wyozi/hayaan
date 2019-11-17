@@ -27,7 +27,9 @@ describe("my test", () => {
 });
 ```
 
-The issue with these methods is that they quickly become either bloated or overly complicated. This problem has been solved in Ruby with RSpec's [`let` method](https://medium.com/@tomkadwill/all-about-rspec-let-a3b642e08d39). Hayaan brings similar solution to statically typed TypeScript (i.e. [given2](https://github.com/tatyshev/given2) for TypeScript).
+The issue with these methods is that they don't generally allow dependencies between properties and can quickly become bloated due to having to repeat some of the test initialization code. None of these methods are particularly elegant.
+
+This problem has been solved in Ruby with RSpec's [`let` method](https://medium.com/@tomkadwill/all-about-rspec-let-a3b642e08d39). Hayaan brings similar solution to statically typed TypeScript (i.e. [given2](https://github.com/tatyshev/given2) for TypeScript).
 
 ### Recipes
 
