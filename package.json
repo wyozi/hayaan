@@ -1,5 +1,5 @@
 {
-  "name": "@wyozi/hayaan",
+  "name": "hayaan",
   "version": "0.0.0-development",
   "main": "dist/hayaan.js",
   "license": "MIT",
