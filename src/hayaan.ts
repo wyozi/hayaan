@@ -1,15 +1,16 @@
 export interface Variable<T> {
-  (): T;
-  set: (newInitializer: () => T) => void;
+  value: T;
+  deferredValue: () => T;
 }
 
-export default function dyn<T>(initializer: () => T): Variable<T> {
-  let scope: () => T = initializer;
+const resolveNewValue = <T>(newValue: T | (() => T)): () => T => {
+  return typeof newValue === "function" ? (newValue as () => T) : () => newValue;
+};
 
-  const value = function() {
-    return scope();
-  };
-  value.set = function setter(newInitializer: () => T) {
+export default function dyn<T>(initializer: T | (() => T)): Variable<T> {
+  let scope: () => T = resolveNewValue(initializer);
+
+  function setter(newInitializer: () => T) {
     let old: () => T;
     beforeEach(() => {
       old = scope;
@@ -19,5 +20,15 @@ export default function dyn<T>(initializer: () => T): Variable<T> {
       scope = old;
     });
   };
-  return value;
+  return {
+    get value(): T {
+      return scope();
+    },
+    set value(newValue: T) {
+      setter(() => newValue);
+    },
+    set deferredValue(newDeferredValue: () => T) {
+      setter(newDeferredValue);
+    }
+  };
 }
