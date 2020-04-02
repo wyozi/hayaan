@@ -1,6 +1,6 @@
 {
   "name": "@wyozi/hayaan",
-  "version": "1.0.2",
+  "version": "0.0.0-development",
   "main": "dist/hayaan.js",
   "license": "MIT",
   "publishConfig": {
