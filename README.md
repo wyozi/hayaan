@@ -2,6 +2,8 @@
 
 Ruby's RSpec-inspired scoped lazy variables for Jest, with native TypeScript support.
 
+![Comparison](./README.png)
+
 **Installation**
 
 `yarn install --dev hayaan`
