@@ -47,3 +47,7 @@ describe("implementation", () => {
 
 - Make sure `<variable>.value = ...` calls are **outside** the `it` blocks
   - _hayaan uses beforeEach and afterEach under the hood, which only work on higher level than individual tests_
+
+### Credits
+
+Inspired by https://github.com/tatyshev/given2 and https://gist.github.com/nerdcave/4418ca2c787f28c6cb30b7c96d7af1fe
