@@ -65,3 +65,35 @@ describe("async scoping", () => {
     })
   })
 })
+
+describe("same-level scope dependencies", () => {
+  const baseDep = dyn(() => Math.random())
+
+  const levelDep1 = dyn(() => baseDep.value)
+  const levelDep2 = dyn(() => baseDep.value)
+
+  it("level deps should resolve to the same value", () => {
+    expect(levelDep1.value === levelDep2.value).toBe(true)
+  })
+
+  describe('in first sub-scope', () => {
+    const levelDep1 = dyn(() => baseDep.value)
+    const levelDep2 = dyn(() => baseDep.value)
+
+    it("level deps should resolve to the same value", () => {
+      expect(levelDep1.value === levelDep2.value).toBe(true)
+    })
+
+    describe('in second sub-scope and changed base dep', () => {
+      baseDep.deferredValue = () => Math.random() * 2
+
+      it("parent level-deps should equal basedep", () => {
+        expect(levelDep1.value === baseDep.value).toBe(true)
+      })
+
+      it("parent level-deps should resolve to the same value", () => {
+        expect(levelDep1.value === levelDep2.value).toBe(true)
+      })
+    })
+  })
+})

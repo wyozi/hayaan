@@ -27,6 +27,13 @@ const resolveNewValue = <T>(newValue: T | (() => T)): () => T => {
 export default function dyn<T>(initializer: T | (() => T)): Variable<T> {
   let scope: () => T = resolveNewValue(initializer);
 
+  let wasResolved = false;
+  let resolved: T;
+
+  beforeEach(() => {
+    wasResolved = false;
+  })
+
   function setter(newInitializer: () => T) {
     let old: () => T;
     beforeEach(() => {
@@ -39,7 +46,11 @@ export default function dyn<T>(initializer: T | (() => T)): Variable<T> {
   };
   return {
     get value(): T {
-      return scope();
+      if (!wasResolved) {
+        resolved = scope();
+        wasResolved = true;
+      }
+      return resolved;
     },
     set value(newValue: T) {
       setter(() => newValue);
