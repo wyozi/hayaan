@@ -6,7 +6,7 @@ Ruby's RSpec-inspired scoped lazy variables for Jest, with native TypeScript sup
 
 **Installation**
 
-`yarn install --dev hayaan`
+`npm install --save-dev hayaan` / `yarn add --dev hayaan`
 
 **Usage**
 
