@@ -9,7 +9,7 @@ describe("scoping", () => {
     expect(main.value).toBe(84);
   });
 
-  describe("when scoped", () => {
+  describe("when sub-scoped", () => {
     describe("and dependency is edited", () => {
       dependency.value = 10;
 
@@ -42,3 +42,26 @@ describe("scoping", () => {
     expect(main.value).toBe(84);
   });
 });
+
+describe("async scoping", () => {
+  const arg0 = dyn("foo")
+  const arg1 = dyn(15)
+
+  const instance = dyn(async () => {
+    await new Promise(resolve => setTimeout(resolve, 50))
+    return `${arg0.value} // ${arg1.value}`
+  })
+
+  it("resolves in root scope", async () => {
+    expect(await instance.value).toEqual("foo // 15")
+  })
+
+  describe("when sub-scoped", () => {
+    arg0.value = "bar"
+    arg1.deferredValue = () => -51
+
+    it("resolves the correct values", async () => {
+      expect(await instance.value).toEqual("bar // -51")
+    })
+  })
+})
