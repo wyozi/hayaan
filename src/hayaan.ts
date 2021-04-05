@@ -1,12 +1,12 @@
 export interface Variable<T> {
   /**
-   * Get or set the current dynamic value
+   * Get or set the dynamic value for the next Jest context block
    */
   value: T;
 
   /**
-   * Set dynamic value through a deferred function. Value will be set to the given value by calling
-   * the given setter only when the correct test scope is reached.
+   * Set dynamic value through a deferred function. Given function will only be called to retrieve the value
+   * when something wants to use the value, i.e. calls `.value` on this Variable or this Variable's dependent
    *
    * This property has no getter!
    */
